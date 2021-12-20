@@ -1,10 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const errorHandling = require('./util/error-handling');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
 const User = require('./models/User');
+
+const {login} = require('./controllers/auth')
+
+console.log(login);
 
 const MONGO_URL = process.env.MONGO_URL;
 
@@ -12,15 +17,21 @@ console.log(MONGO_URL);
 
 const app = express();
 
-app.get('/', (req, res) => {
-	// res.json({message: process.env.TEST})
-	const user = new User({name : 'mee'});
-	user.save().then(result => {
-		res.json({message: 'User created'})
-	});
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
+	res.setHeader("Access-Control-Allow-Headers", "*");
+	next();
+});
+
+app.get('/', async (req, res) => {
+	const users = await User.find();
+	console.log(users);
   })
 
-app.listen(3000);
+app.post('/auth/login', login);
 
 mongoose
 	.connect(MONGO_URL)
