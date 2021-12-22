@@ -7,9 +7,8 @@ require('dotenv').config();
 
 const User = require('./models/User');
 
-const {login} = require('./controllers/auth')
-
-console.log(login);
+const {login} = require('./controllers/auth');
+const {signUp} = require('./controllers/auth')
 
 const MONGO_URL = process.env.MONGO_URL;
 
@@ -28,10 +27,11 @@ app.use((req, res, next) => {
 
 app.get('/', async (req, res) => {
 	const users = await User.find();
-	console.log(users);
+	res.json(users);
   })
 
 app.post('/auth/login', login);
+app.post('/auth/signup', signUp);
 
 mongoose
 	.connect(MONGO_URL)
