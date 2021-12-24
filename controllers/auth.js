@@ -1,8 +1,12 @@
 const User = require('../models/User');
 
 exports.login = async (req, res, next) => {
-	console.log(req.body);
-	res.json({message: 'fulfilled'})
+	const {login, password} = req.body;
+	const user = await User.findOne({login});
+	const isLogin = user.isCorrectPassword(password)
+	if (isLogin) {
+		res.json({message: 'fulfilled'})
+	}
 }
 
 exports.signUp = async (req, res, next) => {
