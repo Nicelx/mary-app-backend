@@ -30,7 +30,7 @@ exports.login = async (req, res, next) => {
 
 exports.signUp = async (req, res, next) => {
 	const { name, password, login } = req.body;
-	console.log(name, password);
+	
 	const user = await new User({
 		name,
 		password,

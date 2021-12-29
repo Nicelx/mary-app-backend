@@ -9,6 +9,9 @@ const User = require('./models/User');
 
 const {login} = require('./controllers/auth');
 const {signUp} = require('./controllers/auth')
+const {publicUserInfo} = require('./controllers/user-info');
+const isAuth = require('./middleware/is-auth');
+
 
 const MONGO_URL = process.env.MONGO_URL;
 
@@ -32,6 +35,7 @@ app.get('/', async (req, res) => {
 
 app.post('/auth/login', login);
 app.post('/auth/signup', signUp);
+app.get('/user/public/:userId', publicUserInfo);
 
 mongoose
 	.connect(MONGO_URL)
