@@ -8,6 +8,9 @@ exports.publicUserInfo =  async(req, res, next) => {
 
 	res.json({
 		name: user.name,
+		city: user.city,
+		birthdate: user.birthdate,
+		avatar: user.avatar,
 	})
 
 } 

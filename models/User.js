@@ -15,6 +15,15 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	city : {
+		type: String,
+	},
+	birthdate : {
+		type : Date,
+	},
+	avatar: {
+		type: String,
+	},
 	password: {
 		type: String,
 		required: true,
